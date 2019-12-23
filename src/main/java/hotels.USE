@@ -1,0 +1,189 @@
+model Hotels
+
+enum RoomType {BASIC, SUITE, VIP}
+
+
+class Date
+attributes
+		day: Integer
+		month: Integer
+		year: Integer
+	operations
+		before(date: Date): Boolean =
+			if date.year > self.year then true
+			else if date.year < self.year then false
+			else if date.month > self.month then true
+			else if date.month < self.month then false
+			else if date.day <= self.day then false
+			else true
+			endif endif endif endif endif
+		 
+		after(date: Date): Boolean =
+			if date.year < self.year then true
+			else if date.year > self.year then false
+			else if date.month < self.month then true
+			else if date.month > self.month then false
+			else if date.day >= self.day then false
+			else true
+			endif endif endif endif endif
+			
+		equals(date : Date): Boolean = 
+			if self.after(date) = false and self.before(date) = false then true
+			else false
+			endif
+			
+end
+
+class Group
+	attributes
+		groupId : Integer
+end
+
+
+class Hotel
+	attributes
+			name : String
+			city : String
+			rate : Integer
+end
+	
+class Client
+	attributes
+			name : String
+			age : Integer
+			city : String
+end
+	
+	
+
+class Reservation
+	attributes
+			id : Integer
+			orderDate : Date
+			requestDate : Date
+end
+	
+class Booking
+	attributes
+		date : Date
+end
+	
+
+class Room
+	attributes
+			number : Integer
+end	
+	
+	
+class RoomCategory
+	attributes
+			price : Integer
+			type : RoomType
+end	
+	
+class Review
+	attributes
+			reviewContent : String
+			rank : Integer
+			date : Date
+end	
+	
+class Service
+	attributes
+			serviceName : String
+end	
+	
+class RegularService < Service
+end	
+
+class CommunityService < Service
+end		
+	
+class VipService < Service
+end		
+--------------------------------------------------------------------------------------------------
+
+associationclass HotelService between
+	Hotel [*]
+	Service[*]
+	
+	attributes
+			quality : Integer
+			price : Integer	
+end
+
+	
+associationclass ReservationSet between
+	Client [*]
+	Hotel[*]
+end
+--------------------------------------------------------------------------------------------------	
+composition allReservations between
+	ReservationSet[1]
+	Reservation[*]
+end
+
+composition hotelRooms between
+	Hotel[1]
+	Room[*]
+end
+
+composition allCategories between
+	Reservation[*]
+	RoomCategory[1]
+end
+--------------------------------------------------------------------------------------------------
+aggregation chain between
+	Group[1]
+	Hotel[*]
+end
+
+--------------------------------------------------------------------------------------------------
+association placements between
+	Reservation[1]
+	Booking[0..1]
+end
+
+association feedback between
+	Booking[1]
+	Review[0..1]
+end
+
+association usedService between
+	Booking[*]
+	HotelService[*]
+end
+
+association roomType between
+	RoomCategory[1]
+	Room[*]
+end
+
+association rentalRoom between
+	Room[0..1] qualifier(date:Date)
+	Booking[1]
+end
+--------------------------------------------------------------------------------------------------
+constraints
+--------------------------------------------------------------------------------------------------
+context Date
+inv legalDateStructure:
+self.year > 0 and self.month < 13 and self.month > 0 and self.day > 0 and self.day < 32
+
+inv february:
+	let optionA: Boolean = self.month = 2 and self.year.mod(400) = 0,
+		optionB: Boolean = self.month = 2 and self.year.mod(100) <> 0 and self.year.mod(4) = 0,
+		optionC: Boolean = optionA or optionB or self.day < 29
+	in	
+		self.month = 2 implies optionC and self.day < 30
+		
+inv shortMonth:
+	let shortM: Boolean = self.month = 4 or self.month = 6 or self.month = 9 or self.month = 11
+	in	
+		shortM implies self.day < 31
+
+
+--------------------------------------------------------------------------------------------------
+-- TO DO --
+
+
