@@ -67,6 +67,7 @@ public class Hotel implements ITestable {
     }
 
     @Override // Constraint 12 //// Constraint 11 //// Constraint 6 //
+
     public boolean checkConstraints() {
         boolean constraint11 = services.keySet().stream().noneMatch(s1 -> services.keySet().stream().filter(s2 -> s1 != s2).anyMatch(s2 -> s1.serviceName.equals(s2.serviceName)));
         boolean constraint6 = !((int) this.rooms.keySet().stream().filter(num -> this.rooms.get(num).getRoomCategory().getType() == RoomCategory.RoomType.VIP).count() > (this.rooms.size() * 0.1));
@@ -78,13 +79,10 @@ public class Hotel implements ITestable {
         this.services.keySet().forEach(s -> {
             HashSet<Booking> bookings = this.services.get(s).getGivenServices();
             bookings.stream().map(b -> b.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()).
-                    filter(lc -> !yearsHistory.containsKey(lc.getYear())).forEach
-                    (lc -> yearsHistory.put(lc.getYear(),
-                            yearsHistory.get(lc.getYear())+this.services.get(s).getPrice()));
+                    forEach(lc -> yearsHistory.put(lc.getYear(), !yearsHistory.containsKey(lc.getYear()) ? this.services.get(s).getPrice() : yearsHistory.get(lc.getYear())+this.services.get(s).getPrice()));
         });
         Map<Integer, Integer> sorted = new TreeMap<>(yearsHistory);
         List<Integer> values = new ArrayList<>(sorted.values());
-        List<Integer> keys = new ArrayList<>(sorted.keySet());
-        return IntStream.range(0, keys.size()-1).noneMatch(i -> values.get(i) > values.get(i+1));
+        return IntStream.range(0, values.size()-1).noneMatch(i -> values.get(i) > values.get(i+1));
     }
 }

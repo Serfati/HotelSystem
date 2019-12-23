@@ -41,5 +41,4 @@ public class ReservationSet implements ITestable {
     public boolean checkConstraints() {
         return !this.hotel.getName().equals("LAS VEGAS") || this.client.getAge() >= 21;
     }
-
 }
