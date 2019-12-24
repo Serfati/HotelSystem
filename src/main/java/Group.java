@@ -29,8 +29,8 @@ public class Group implements ITestable {
 
     @Override // Constraint 1 //// Constraint 4 //
     public boolean checkConstraints() {
-        boolean Constraint1 = this.hotels.stream().noneMatch(hotel1 -> this.hotels.stream().anyMatch(hotel2 -> (!hotel1.getName().equalsIgnoreCase(hotel2.getName())) && hotel1.getGroup().getGroupId() == hotel2.getGroup().getGroupId() && hotel1.getCity().equalsIgnoreCase(hotel2.getCity())));
-        boolean Constraint4 = this.hotels.stream().noneMatch(hotel1 -> this.hotels.stream().map(hotel2 -> hotel2.getServices().keySet()).anyMatch(h2Service -> !(hotel1.getServices().keySet().containsAll(h2Service) && h2Service.containsAll(hotel1.getServices().keySet()))));
-        return Constraint1 || Constraint4;
+        boolean constraint1 = this.hotels.stream().noneMatch(hotel1 -> this.hotels.stream().anyMatch(hotel2 -> (!hotel1.getName().equalsIgnoreCase(hotel2.getName())) && hotel1.getGroup().getGroupId() == hotel2.getGroup().getGroupId() && hotel1.getCity().equalsIgnoreCase(hotel2.getCity())));
+        boolean constraint4 = this.hotels.stream().noneMatch(hotel1 -> this.hotels.stream().map(hotel2 -> hotel2.getServices().keySet()).anyMatch(h2Service -> !(hotel1.getServices().keySet().containsAll(h2Service) && h2Service.containsAll(hotel1.getServices().keySet()))));
+        return constraint1 && constraint4;
     }
 }

@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -49,12 +48,6 @@ public class Client implements ITestable {
 
     @Override //Constraint 2//
     public boolean checkConstraints() {
-        ArrayList<Reservation> reservations;
-        for(Hotel h : reservationsHistory.keySet()) {
-            reservations = reservationsHistory.get(h).getReservations();
-            if (reservations.size() >= 5 && reservations.stream().noneMatch(r -> r.getRoomCategory().getType() == RoomCategory.RoomType.VIP))
-                return false;
-        }
-        return true;
+        return reservationsHistory.keySet().stream().noneMatch(h -> reservationsHistory.get(h).getReservations().size() >= 5 && reservationsHistory.get(h).getReservations().stream().noneMatch(r -> r.getRoomCategory().getType() == RoomCategory.RoomType.VIP));
     }
 }

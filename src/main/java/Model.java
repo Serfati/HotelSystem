@@ -104,6 +104,8 @@ public class Model {
             return false;
         if (Reservation.checkAllIntancesConstraints(this) == false)
             return false;
+        if (ReservationSet.checkAllIntancesConstraints(this) == false)
+            return false;
         if (Review.checkAllIntancesConstraints(this) == false)
             return false;
         if (Room.checkAllIntancesConstraints(this) == false)
@@ -118,7 +120,7 @@ public class Model {
             return false;
         if (VipService.checkAllIntancesConstraints(this) == false)
             return false;
-        return true;
+        return Group.checkAllIntancesConstraints(this) != false;
     }
 
     public HashSet<Hotel> HotelAllInstances() {
@@ -126,6 +128,15 @@ public class Model {
         for(ITestable object : allObjects) {
             if (object instanceof Hotel)
                 ans.add((Hotel) object);
+        }
+        return ans;
+    }
+
+    public HashSet<Group> GroupAllInstances() {
+        HashSet<Group> ans = new HashSet<Group>();
+        for(ITestable object : allObjects) {
+            if (object instanceof Group)
+                ans.add((Group) object);
         }
         return ans;
     }
