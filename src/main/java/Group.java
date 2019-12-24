@@ -29,7 +29,7 @@ public class Group implements ITestable {
 
     @Override // Constraint 1 //// Constraint 4 //
     public boolean checkConstraints() {
-        boolean Constraint1 = this.hotels.stream().noneMatch(hotel1 -> this.hotels.stream().anyMatch(hotel2 -> (!hotel1.getName().equals(hotel2.getName())) && hotel1.getCity().equals(hotel2.getCity())));
+        boolean Constraint1 = this.hotels.stream().noneMatch(hotel1 -> this.hotels.stream().anyMatch(hotel2 -> (!hotel1.getName().equals(hotel2.getName())) && hotel1.getGroup().equals(hotel2.getGroup()) && hotel1.getCity().equals(hotel2.getCity())));
         boolean Constraint4 = this.hotels.stream().noneMatch(hotel1 -> this.hotels.stream().map(hotel2 -> hotel2.getServices().keySet()).anyMatch(h2Service -> !(hotel1.getServices().keySet().containsAll(h2Service) && h2Service.containsAll(hotel1.getServices().keySet()))));
         return Constraint1 || Constraint4;
     }

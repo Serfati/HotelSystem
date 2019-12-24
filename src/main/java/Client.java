@@ -53,11 +53,8 @@ public class Client implements ITestable {
         ArrayList<Reservation> reservations;
         for(Hotel h : reservationsHistory.keySet()) {
             reservations = reservationsHistory.get(h).getReservations();
-            if (reservations.size() >= 5) {
-                if (reservations.stream().anyMatch(r -> r.getRoomCategory().getType() == RoomCategory.RoomType.VIP))
-                    vipRoom = true;
-                if (!vipRoom) return false;
-            }
+            if (reservations.size() >= 5 && reservations.stream().noneMatch(r -> r.getRoomCategory().getType() == RoomCategory.RoomType.VIP))
+                return false;
         }
         return true;
     }

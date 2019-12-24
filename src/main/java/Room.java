@@ -50,5 +50,4 @@ public class Room implements ITestable {
     public boolean checkConstraints() {
         return this.roomCategory.getType() != RoomCategory.RoomType.VIP || bookings.keySet().stream().map(d -> bookings.get(d).getServices()).flatMap(Collection::stream).allMatch(hs -> hs.getService() instanceof VipService);
     }
-
 }
