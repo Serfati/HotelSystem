@@ -49,7 +49,6 @@ public class Client implements ITestable {
 
     @Override //Constraint 2//
     public boolean checkConstraints() {
-        boolean vipRoom = false;
         ArrayList<Reservation> reservations;
         for(Hotel h : reservationsHistory.keySet()) {
             reservations = reservationsHistory.get(h).getReservations();

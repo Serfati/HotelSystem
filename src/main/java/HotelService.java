@@ -52,7 +52,7 @@ public class HotelService implements ITestable {
 
     @Override // Constraint 13 //
     public boolean checkConstraints() {
-        return this.givenServices.stream().filter(b -> b.getRoom() != null).allMatch(b -> b.getRoom().getHotel().getName().equals(this.hotel));
+        return this.givenServices.stream().filter(b -> b.getRoom() != null).allMatch(b -> b.getRoom().getHotel().getName().equalsIgnoreCase(this.hotel.getName()));
     }
 
 }

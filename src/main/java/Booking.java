@@ -60,7 +60,7 @@ public class Booking implements ITestable {
 
     @Override // Constraint 3//// Constraint 9//// Constraint 8//
     public boolean checkConstraints() {
-        boolean constraint3 = this.room != null && this.room.getHotel().getName().equals(this.reservation.getReservationSet().getHotel().getName());
+        boolean constraint3 = this.room != null && this.room.getHotel().getName().equalsIgnoreCase(this.reservation.getReservationSet().getHotel().getName());
         boolean constraint9 = this.services.stream().anyMatch(hs -> hs.getService() instanceof VipService) && review != null;
         return constraint3 || constraint9 || constraint8();
     }

@@ -34,8 +34,8 @@ public class Review implements ITestable {
         return reviewContent;
     }
 
-    @Override // Constraint 10 // TODO
+    @Override
     public boolean checkConstraints() {
-        return this.booking.getReservation().getReservationSet().getHotel().getRate() != 5 || this.rank > 7.5;
+        return true;
     }
 }

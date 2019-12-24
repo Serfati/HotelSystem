@@ -39,7 +39,7 @@ public class ReservationSet implements ITestable {
 
     @Override // Constraint 7 //
     public boolean checkConstraints() {
-        return !this.hotel.getCity().equals("LAS VEGAS") || this.client.getAge() >= 21;
+        return !this.hotel.getCity().equalsIgnoreCase("LAS VEGAS") || this.client.getAge() >= 21;
 
     }
 }
