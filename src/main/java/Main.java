@@ -1,25 +1,25 @@
 
 public class Main {
     public static void main(String[] args) {
-//        test1();
-//        System.out.println("===========2===========");
-//        test2();
-//        System.out.println("=========3=============");
-//        test3();
-//        System.out.println("=========7=============");
-//        test7();
-//        System.out.println("=========8=============");
-//        test8();
-//        System.out.println("=========9============");
-//        test9();
+        test1();
+        System.out.println("===========2===========");
+        test2();
+        System.out.println("=========3=============");
+        test3();
+        System.out.println("=========7=============");
+        test7();
+        System.out.println("=========8=============");
+        test8();
+        System.out.println("=========9============");
+        test9();
         System.out.println("=========10===========");
         test10();
-//        System.out.println("=========11===========");
-//        test11();
-//        System.out.println("========12=============");
-//        test12();
-//        System.out.println("==========13==========");
-//        test13();
+        System.out.println("=========11===========");
+        test11();
+        System.out.println("========12=============");
+        test12();
+        System.out.println("==========13==========");
+        test13();
 
     }
 

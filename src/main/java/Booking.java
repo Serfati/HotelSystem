@@ -67,12 +67,10 @@ public class Booking implements ITestable {
     }
 
     private boolean constraint8() {
-        if (this.room != null) if (this.room.getRoomCategory().getType() == RoomCategory.RoomType.VIP)
-            return this.reservation.getRoomCategory().getType() == RoomCategory.RoomType.VIP;
-        else if (this.room.getRoomCategory().getType() == RoomCategory.RoomType.SUITE)
-            return this.reservation.getRoomCategory().getType() != RoomCategory.RoomType.BASIC;
-        return false;
+        if (this.reservation.getRoomCategory().getType() == RoomCategory.RoomType.VIP)
+            return this.room.getRoomCategory().getType() == RoomCategory.RoomType.VIP;
+        if (this.reservation.getRoomCategory().getType() == RoomCategory.RoomType.SUITE)
+            return this.room.getRoomCategory().getType() != RoomCategory.RoomType.BASIC;
+        return true;
     }
-
-
 }

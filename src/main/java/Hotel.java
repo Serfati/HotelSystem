@@ -70,7 +70,7 @@ public class Hotel implements ITestable {
     public boolean checkConstraints() {
         boolean constraint11 = services.keySet().stream().noneMatch(s1 -> services.keySet().stream().filter(s2 -> s1 != s2).anyMatch(s2 -> s1.serviceName.equalsIgnoreCase(s2.serviceName)));
         boolean constraint6 = !((int) this.rooms.keySet().stream().filter(num -> this.rooms.get(num).getRoomCategory().getType() == RoomCategory.RoomType.VIP).count() > (this.rooms.size() * 0.1));
-        return constraint10() && constraint11 && constraint6 && constraint12();
+        return constraint11 && constraint6 && constraint12();
     }
 
     private boolean constraint12() {
@@ -93,11 +93,11 @@ public class Hotel implements ITestable {
                 sumRank += r.getBookings().getReview().getRank();
                 totalReview++;
             }
-        for(Room r : rooms.values())
-            for(Booking b : r.getBookings().values()) {
-                sumRank += b.getReview().getRank();
-                totalReview++;
-            }
+//        for(Room r : rooms.values())
+//            for(Booking b : r.getBookings().values()) {
+//                sumRank += b.getReview().getRank();
+//                totalReview++;
+//            }
         return getRate() != 5 || sumRank / totalReview >= 7.5;
     }
 }
