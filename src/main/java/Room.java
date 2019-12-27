@@ -1,4 +1,3 @@
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -48,6 +47,6 @@ public class Room implements ITestable {
 
     @Override // Constraint 5 //
     public boolean checkConstraints() {
-        return this.roomCategory.getType() != RoomCategory.RoomType.VIP || bookings.keySet().stream().map(d -> bookings.get(d).getServices()).flatMap(Collection::stream).allMatch(hs -> hs.getService() instanceof VipService);
+        return this.roomCategory.getType() != RoomCategory.RoomType.VIP || bookings.values().stream().flatMap(b -> b.getServices().stream()).allMatch(hs -> hs.getService() instanceof VipService);
     }
 }

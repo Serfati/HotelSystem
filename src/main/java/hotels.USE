@@ -184,6 +184,28 @@ inv shortMonth:
 
 
 --------------------------------------------------------------------------------------------------
--- TO DO --
+context Group
+inv constraint_1:
+self.hotel-> forAll(h1,h2: Hotel | h1.city = h2.city implies h1 = h2)
+
+context Hotel
+inv constraint_2:
+self.rate < 6 and self.rate > 0
+
+context Booking
+inv constraint_3:
+self.date = self.reservation.requestDate
+
+context Hotel
+inv constraint_4:
+self.room -> forAll(r1,r2: Room | r1.number = r2.number implies r1 = r2)
+
+context	ReservationSet
+inv constraint_5:
+self.reservation->size() >= 5 implies self.reservation->exists(r: Reservation|r.roomCategory.type = RoomType::VIP)
+
+context Review
+inv constraint_7:
+self.date.after(self.booking.reservation.orderDate) = true
 
 
