@@ -58,10 +58,10 @@ public class Booking implements ITestable {
         return review;
     }
 
-    @Override // Constraint 3//// Constraint 9//// Constraint 8//
+    @Override // Constraint 3//// Constraint 9//// Constraint 8////Constraint 13//
     public boolean checkConstraints() {
         boolean constraint3 = this.room != null && this.reservation != null && this.room.getHotel() != null && this.room.getHotel().equals(this.reservation.getReservationSet().getHotel());
-        boolean constraint9 = this.services.stream().anyMatch(hs -> hs.getService() instanceof VipService) && review != null;
+        boolean constraint9 = review != null || services.stream().noneMatch(service -> service.getService() instanceof VipService);
         boolean constraint13 = !(this.room.getHotel() == null || this.services == null || !services.stream().allMatch(hs -> room.getHotel().getServices().containsValue(hs)));
         return constraint3 && constraint8() && constraint9 && constraint13;
     }

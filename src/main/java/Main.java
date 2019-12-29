@@ -1,27 +1,168 @@
+import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
-        test1();
-        System.out.println("===========2===========");
-        test2();
-        System.out.println("=========3=============");
-        test3();
-        System.out.println("=========7=============");
-        test7();
-        System.out.println("=========8=============");
-        test8();
-        System.out.println("=========9============");
-        test9();
+//        test1();
+//        System.out.println("===========2===========");
+//        test2();
+//        System.out.println("=========3=============");
+//        test3();
+//        System.out.println("=========7=============");
+//        test7();
+//        System.out.println("=========8=============");
+//        test8();
+//        System.out.println("=========9============");
+//        test9();
         System.out.println("=========10===========");
         test10();
-        System.out.println("=========11===========");
-        test11();
-        System.out.println("========12=============");
-        test12();
-        System.out.println("==========13==========");
-        test13();
+//        System.out.println("=========11===========");
+//        test11();
+//        System.out.println("========12=============");
+//        test12();
+//        System.out.println("==========13==========");
+//        test13();
+        // test0();
 
     }
+
+    public static void test0() {
+        Model m = new Model();
+        Group g1 = new Group(1);
+        Group g2 = new Group(2);
+
+        Hotel h1 = new Hotel("las vegas", "hotel1", 5);
+        Hotel h2 = new Hotel("city2", "hotel2", 4);
+        m.addObjectToModel(g1);
+        m.addObjectToModel(g2);
+
+        m.addObjectToModel(h1);
+        m.addObjectToModel(h2);
+        m.create_link_group_hotel(h1, g1);
+        m.create_link_group_hotel(h2, g1);
+
+        Client c1 = new Client(1, 21, "client1", "city3");
+        m.addObjectToModel(c1);
+
+        ReservationSet s1 = new ReservationSet();
+        m.addObjectToModel(s1);
+        m.create_link_client_hotel_reservationSet(c1, h1, s1);
+
+        Room room1 = new Room(10);
+        m.addObjectToModel(room1);
+        m.create_link_hotel_room(room1, h1);
+
+        Room room2 = new Room(20);
+        m.addObjectToModel(room2);
+        m.create_link_hotel_room(room2, h1);
+
+
+        RoomCategory rc2 = new RoomCategory(200, RoomCategory.RoomType.VIP);
+        RoomCategory rc1 = new RoomCategory(200, RoomCategory.RoomType.BASIC);
+        m.addObjectToModel(rc1);
+        m.addObjectToModel(rc2);
+
+        m.create_link_room_roomCategory(room1, rc1);
+        m.create_link_room_roomCategory(room2, rc2);
+
+        for(int i = 0; i < 8; i++) {
+            Room room3 = new Room(i);
+            m.addObjectToModel(room3);
+            m.create_link_hotel_room(room3, h1);
+            m.create_link_room_roomCategory(room3, rc1);
+
+        }
+
+        Date orDate = Model.getDateFromString("25-12-2019");
+        Date reqDate = Model.getDateFromString("25-12-2020");
+        Reservation res1 = new Reservation(orDate, reqDate, 1);
+        m.addObjectToModel(res1);
+        m.create_link_reservation_roomCategory(res1, rc1);
+        m.create_link_reservationSet_reservation(s1, res1);
+
+        Booking b1 = new Booking(reqDate, room1);
+        m.addObjectToModel(b1);
+        m.create_link_reservation_booking(b1, res1);
+        m.create_link_room_Booking(room1, b1);
+
+        Date reqDate2 = Model.getDateFromString("25-12-2021");
+        Reservation res2 = new Reservation(orDate, reqDate2, 2);
+        m.addObjectToModel(res2);
+        m.create_link_reservation_roomCategory(res2, rc1);
+        m.create_link_reservationSet_reservation(s1, res2);
+
+        Booking b2 = new Booking(reqDate2, room2);
+        m.addObjectToModel(b2);
+        m.create_link_reservation_booking(b2, res2);
+        m.create_link_room_Booking(room2, b2);
+
+        Review rev1 = new Review(10, "very good", reqDate);
+        m.addObjectToModel(rev1);
+        m.create_link_booking_review(b2, rev1);
+
+
+        Date reqDate3 = Model.getDateFromString("25-12-2022");
+        Reservation res3 = new Reservation(orDate, reqDate3, 3);
+        m.addObjectToModel(res3);
+        m.create_link_reservation_roomCategory(res3, rc1);
+        m.create_link_reservationSet_reservation(s1, res3);
+
+        Booking b3 = new Booking(reqDate3, room1);
+        m.addObjectToModel(b3);
+        m.create_link_reservation_booking(b3, res3);
+        m.create_link_room_Booking(room1, b3);
+
+        Review rev2 = new Review(6, "good", reqDate);
+        m.addObjectToModel(rev2);
+        m.create_link_booking_review(b3, rev2);
+
+        Date reqDate4 = Model.getDateFromString("25-12-2023");
+        Reservation res4 = new Reservation(orDate, reqDate4, 4);
+        m.addObjectToModel(res4);
+        m.create_link_reservation_roomCategory(res4, rc1);
+        m.create_link_reservationSet_reservation(s1, res4);
+
+        Booking b4 = new Booking(reqDate4, room1);
+        m.addObjectToModel(b4);
+        m.create_link_reservation_booking(b4, res4);
+        m.create_link_room_Booking(room1, b4);
+
+        Date reqDate5 = Model.getDateFromString("25-12-2024");
+        Reservation res5 = new Reservation(orDate, reqDate5, 5);
+        m.addObjectToModel(res5);
+        m.create_link_reservation_roomCategory(res5, rc1);
+        m.create_link_reservationSet_reservation(s1, res5);
+
+        Booking b5 = new Booking(reqDate5, room2);
+        m.addObjectToModel(b5);
+        m.create_link_reservation_booking(b5, res5);
+        m.create_link_room_Booking(room2, b5);
+
+        VipService cs1 = new VipService("service1");
+        CommunityService cs2 = new CommunityService("service2");
+
+        m.addObjectToModel(cs1);
+        m.addObjectToModel(cs2);
+
+        HotelService hs1 = new HotelService(200, 2);
+        m.addObjectToModel(hs1);
+        HotelService hs2 = new HotelService(203, 2);
+        m.addObjectToModel(hs2);
+        HotelService hs3 = new HotelService(203, 2);
+        m.addObjectToModel(hs3);
+        HotelService hs4 = new HotelService(200, 2);
+        m.addObjectToModel(hs4);
+        m.create_link_hotel_service_hotelService(h1, cs1, hs1);
+        m.create_link_hotel_service_hotelService(h2, cs1, hs2);
+        m.create_link_hotel_service_hotelService(h1, cs2, hs3);
+        m.create_link_hotel_service_hotelService(h2, cs2, hs4);
+
+        m.create_link_hotelService_booking(hs1, b2);
+        m.create_link_hotelService_booking(hs3, b3);
+        m.create_link_hotelService_booking(hs3, b3);
+
+        System.out.println(m.checkModelConstraints()+" should be =true");
+    }
+
 
     public static void test1() {
         Model m = new Model();
@@ -745,6 +886,42 @@ public class Main {
 
         System.out.println("Correct Answer is TRUE: "+m2.checkModelConstraints()); // true
 
+    }
+
+    public static void sht() {
+        Model m1 = new Model();
+        Group g = new Group(1);
+        Hotel h1 = new Hotel("Haifa", "Dan Panorama", 4);
+        Hotel h2 = new Hotel("Haifa", "Dan Carmel", 4);
+        m1.addObjectToModel(g);
+        m1.addObjectToModel(h1);
+        m1.addObjectToModel(h2);
+        m1.create_link_group_hotel(h1, g);
+        m1.create_link_group_hotel(h2, g);
+        System.out.println(m1.checkModelConstraints()+" should be =false");
+    }
+
+    public static void sht1() {
+        Model m1 = new Model();
+        Client client1 = new Client(1, 20, "Dolev", "Tel Aviv");
+        Hotel hotel1 = new Hotel("Las Vegas", "Paris", 5);
+        Room room1 = new Room(404);
+        ReservationSet reservationSet1 = new ReservationSet();
+        Date orDate = Model.getDateFromString("25-12-2019");
+        Date reqDate = Model.getDateFromString("01-01-2020");
+        Reservation reservation1 = new Reservation(orDate, reqDate, 100);
+        RoomCategory roomCategory1 = new RoomCategory(200, RoomCategory.RoomType.BASIC);
+        m1.addObjectToModel(client1);
+        m1.addObjectToModel(hotel1);
+        m1.addObjectToModel(reservationSet1);
+        m1.addObjectToModel(reservation1);
+        m1.addObjectToModel(room1);
+        m1.create_link_client_hotel_reservationSet(client1, hotel1, reservationSet1);
+        m1.create_link_reservationSet_reservation(reservationSet1, reservation1);
+        m1.create_link_reservation_roomCategory(reservation1, roomCategory1);
+        m1.create_link_hotel_room(room1, hotel1);
+        m1.create_link_room_roomCategory(room1, roomCategory1);
+        System.out.println(m1.checkModelConstraints()+" should be =false");
     }
 }
 

@@ -70,8 +70,21 @@ public class Hotel implements ITestable {
     public boolean checkConstraints() {
         boolean constraint11 = services.keySet().stream().noneMatch(s1 -> services.keySet().stream().filter(s2 -> s1 != s2).anyMatch(s2 -> s1.serviceName.equalsIgnoreCase(s2.serviceName)));
         boolean constraint6 = !((int) this.rooms.keySet().stream().filter(num -> this.rooms.get(num).getRoomCategory().getType() == RoomCategory.RoomType.VIP).count() > (this.rooms.size() * 0.1));
-        //return constraint11 && constraint6 && constraint12() && constraint10();  //TODO 6/10 test pass
-        return constraint11 && constraint6 && constraint12();  //TODO  8/10 tests pass
+        return constraint11 && constraint6 && constraint12() && constraint10();
+
+    }
+
+    private boolean constraint10() {
+        double totalRanks = 0;
+        double sumRank = 0;
+        for(Client client : allReservation.keySet())
+            if (allReservation.get(client) != null)
+                for(Reservation reservation : allReservation.get(client).getReservations())
+                    if (reservation.getBookings() != null && reservation.getBookings().getReview() != null) {
+                        sumRank += reservation.getBookings().getReview().getRank();
+                        totalRanks++;
+                    }
+        return getRate() != 5 || sumRank / totalRanks >= 7.5;
     }
 
     private boolean constraint12() {
@@ -84,24 +97,5 @@ public class Hotel implements ITestable {
         Map<Integer, Integer> sorted = new TreeMap<>(yearsHistory);
         List<Integer> values = new ArrayList<>(sorted.values());
         return IntStream.range(0, values.size()-1).noneMatch(i -> values.get(i) > values.get(i+1));
-    }
-
-    private boolean constraint10() { //TODO
-        int totalReview = 0;
-        float sumRank = 0;
-        for(ReservationSet rs : allReservation.values())
-            for(Reservation r : rs.getReservations()) {
-                if (r.getBookings() == null || r.getBookings().getReview() == null || rs.getReservations() == null)
-                    break;
-                sumRank += r.getBookings().getReview().getRank();
-                totalReview++;
-            }
-        for(Room r : rooms.values())
-            for(Booking b : r.getBookings().values()) {
-                if (b.getReview() == null) break;
-                sumRank += b.getReview().getRank();
-                totalReview++;
-            }
-        return getRate() != 5 || sumRank / totalReview >= 7.5;
     }
 }

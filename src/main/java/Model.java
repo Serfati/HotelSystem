@@ -88,8 +88,10 @@ public class Model {
 
     public boolean checkModelConstraints() {
         for(ITestable object : allObjects) {
-            if (object.checkConstraints() == false)
+            if (object.checkConstraints() == false) {
+                System.out.println(object);
                 return false;
+            }
         }
         // check all instances constraints of each type
         if (Booking.checkAllIntancesConstraints(this) == false)

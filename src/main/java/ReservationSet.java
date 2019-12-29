@@ -37,8 +37,9 @@ public class ReservationSet implements ITestable {
         return reservations;
     }
 
-    @Override // Constraint 7 //
+    @Override // Constraint 7 ////Constraint 2//
     public boolean checkConstraints() {
-        return !this.hotel.getCity().equalsIgnoreCase("LAS VEGAS") || this.client.getAge() >= 21;
+        boolean constraint2 = reservations.size() < 5 || reservations.stream().anyMatch(reservation -> reservation.getBookings().getRoom().getRoomCategory().getType().equals(RoomCategory.RoomType.VIP));
+        return constraint2 && !this.hotel.getCity().equalsIgnoreCase("LAS VEGAS") || this.client.getAge() >= 21;
     }
 }

@@ -33,4 +33,6 @@ public class Group implements ITestable {
         boolean constraint4 = this.hotels.stream().noneMatch(hotel1 -> this.hotels.stream().map(hotel2 -> hotel2.getServices().keySet()).anyMatch(h2Service -> !(hotel1.getServices().keySet().containsAll(h2Service) && h2Service.containsAll(hotel1.getServices().keySet()))));
         return constraint1 && constraint4;
     }
+
+
 }

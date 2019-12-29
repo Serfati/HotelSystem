@@ -46,8 +46,8 @@ public class Client implements ITestable {
         return name;
     }
 
-    @Override //Constraint 2//
+    @Override
     public boolean checkConstraints() {
-        return reservationsHistory.keySet().stream().noneMatch(h -> reservationsHistory.get(h).getReservations().size() >= 5 && reservationsHistory.get(h).getReservations().stream().noneMatch(r -> r.getRoomCategory().getType() == RoomCategory.RoomType.VIP));
+        return true;
     }
 }
